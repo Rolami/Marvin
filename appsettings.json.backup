@@ -1,6 +1,0 @@
-{
-    "Speech_Key" : "db510d2873f04d988fe20d83961f61c2",
-    "Speech_Region" : "westeurope",
-    "CognitiveServiceKey": "YOUR_COGNITIVE_SERVICES_KEY",
-    "CognitiveServiceRegion": "YOUR_COGNITIVE_SERVICES_LOCATION"
-}

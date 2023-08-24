@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+hdVvUFAQMoqksX8Dk6XutjBQ3QXSsAITQiycQDRT8rEkx047uG9VnR5drJLaFlK3rNPtPJ6ySpXENKa89pcSA==",
+  "dgSpecHash": "Sfv5OLMZb+uwXXI4+KgxIs2RYMeFD6mmiERcEUOH4wPnhCPV8IrFZ2QjAKEs2Zn0sVMdFg6dlXbFiG1CHWVWqA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\dream\\Repos\\AI\\Lab1Ai\\Marvin\\Marvin.csproj",
+  "projectFilePath": "c:\\Users\\dream\\Repos\\AI\\Lab1Ai\\Marvin\\Marvin.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dream\\.nuget\\packages\\azure.ai.language.questionanswering\\1.1.0\\azure.ai.language.questionanswering.1.1.0.nupkg.sha512",
     "C:\\Users\\dream\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",

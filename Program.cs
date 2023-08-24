@@ -11,6 +11,7 @@ namespace Marvin
     class Program
     {
         IConfigurationRoot configuration;
+        //inits of strings
         private string speechKey;
         private string speechRegion;
         private string endpoint;
@@ -18,7 +19,7 @@ namespace Marvin
         private string projectName;
         private string deploymentName;
 
-        private SpeechConfig? speechConfig; // Moved to class level
+        private SpeechConfig speechConfig;
 
         public Program()
         {
@@ -26,10 +27,10 @@ namespace Marvin
             configuration = builder.Build();
             speechKey = configuration["Speech_Key"];
             speechRegion = configuration["Speech_Region"];
-            endpoint = "https://wittymarvin.cognitiveservices.azure.com/";
-            credential = new AzureKeyCredential("6ba4f81e7f714eebaca94d62cb717e77");
-            projectName = "wittymarvin101";
-            deploymentName = "production";
+            endpoint = "https://INSERTWEBADRESSHERE/";
+            credential = new AzureKeyCredential("INSERTMUMBOJUMBOKEY HERE 29aeebdf023 etc");
+            projectName = "LANGUAGEPROJECTNAME";//qna needs this for some reason 
+            deploymentName = "production"; //qna needs this for some reason
         }
 
         public async Task RunAsync()
@@ -44,13 +45,15 @@ namespace Marvin
             MarvinSpeak(greetings);
 
             while (true)
-            {
+            {   
+                // if the input is either of these, the program stops.
+                string[] exitPhrase = {"Stop.", "Exit.", "Quit."};
                 var speechRecognitionResult = await speechRecognizer.RecognizeOnceAsync();
 
-                if (speechRecognitionResult.Text == "Stop.")
+                if (exitPhrase.Contains(speechRecognitionResult.Text))
                     break;
 
-                Console.WriteLine($"RECOGNIZED: Text={speechRecognitionResult.Text}");
+                // Console.WriteLine($"RECOGNIZED: Text={speechRecognitionResult.Text}");
                 await MarvinThink(speechRecognitionResult.Text);
             }
         }
@@ -68,8 +71,8 @@ namespace Marvin
                     Console.WriteLine(speak.Reason);
                 }
 
-                Console.WriteLine(responseText);
-            }).Wait(); // Wait for the async operation to complete synchronously
+                // Console.WriteLine(responseText);
+            }).Wait(); 
         }
 
         public async Task MarvinThink(string question)
