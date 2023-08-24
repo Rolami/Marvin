@@ -1,0 +1,111 @@
+Parameters.json : 
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "accounts_wittymarvin_name": {
+            "value": null
+        },
+        "accounts_marvinspeech_name": {
+            "value": null
+        },
+        "searchServices_wittymarvin_asthtfyd2dgeirg_name": {
+            "value": null
+        }
+    }
+}
+
+Template.json : 
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "accounts_wittymarvin_name": {
+            "defaultValue": "wittymarvin",
+            "type": "String"
+        },
+        "accounts_marvinspeech_name": {
+            "defaultValue": "marvinspeech",
+            "type": "String"
+        },
+        "searchServices_wittymarvin_asthtfyd2dgeirg_name": {
+            "defaultValue": "wittymarvin-asthtfyd2dgeirg",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.CognitiveServices/accounts",
+            "apiVersion": "2023-05-01",
+            "name": "[parameters('accounts_marvinspeech_name')]",
+            "location": "westeurope",
+            "sku": {
+                "name": "S0"
+            },
+            "kind": "SpeechServices",
+            "identity": {
+                "type": "None"
+            },
+            "properties": {
+                "networkAcls": {
+                    "defaultAction": "Allow",
+                    "virtualNetworkRules": [],
+                    "ipRules": []
+                },
+                "publicNetworkAccess": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Search/searchServices",
+            "apiVersion": "2022-09-01",
+            "name": "[parameters('searchServices_wittymarvin_asthtfyd2dgeirg_name')]",
+            "location": "West Europe",
+            "sku": {
+                "name": "standard"
+            },
+            "properties": {
+                "replicaCount": 1,
+                "partitionCount": 1,
+                "hostingMode": "Default",
+                "publicNetworkAccess": "Enabled",
+                "networkRuleSet": {
+                    "ipRules": []
+                },
+                "encryptionWithCmk": {},
+                "disableLocalAuth": false,
+                "authOptions": {
+                    "apiKeyOnly": {}
+                }
+            }
+        },
+        {
+            "type": "Microsoft.CognitiveServices/accounts",
+            "apiVersion": "2023-05-01",
+            "name": "[parameters('accounts_wittymarvin_name')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Search/searchServices', parameters('searchServices_wittymarvin_asthtfyd2dgeirg_name'))]"
+            ],
+            "sku": {
+                "name": "S"
+            },
+            "kind": "TextAnalytics",
+            "identity": {
+                "type": "SystemAssigned"
+            },
+            "properties": {
+                "apiProperties": {
+                    "qnaAzureSearchEndpointId": "[resourceId('Microsoft.Search/searchServices', parameters('searchServices_wittymarvin_asthtfyd2dgeirg_name'))]"
+                },
+                "customSubDomainName": "[parameters('accounts_wittymarvin_name')]",
+                "networkAcls": {
+                    "defaultAction": "Allow",
+                    "virtualNetworkRules": [],
+                    "ipRules": []
+                },
+                "publicNetworkAccess": "Enabled"
+            }
+        }
+    ]
+}
