@@ -6,3 +6,6 @@ global using global::System.Linq;
 global using global::System.Net.Http;
 global using global::System.Threading;
 global using global::System.Threading.Tasks;
+global using Microsoft.CognitiveServices.Speech.Audio;
+global using Azure;
+global using Azure.AI.Language.QuestionAnswering;
